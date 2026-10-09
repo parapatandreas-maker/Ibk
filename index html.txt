@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repositori Proyek Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 transition-colors duration-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo / Title -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-violet-500 flex items-center justify-center text-white font-bold text-xl shadow-md shadow-brand-500/20">
+                        <i class="fa-solid font-code"></i>
+                        <span class="text-lg">Dev</span>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-violet-600 dark:from-brand-500 dark:to-violet-400">DevRepo</span>
+                        <span class="hidden sm:inline-block text-xs text-slate-400 dark:text-slate-500 ml-2 font-mono">v2.0</span>
+                    </div>
+                </div>
+
+                <!-- Right Actions (Theme Toggle & Github) -->
+                <div class="flex items-center space-x-3">
+                    <!-- Theme Toggle -->
+                    <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all focus:outline-none focus:ring-2 focus:ring-brand-500" title="Ubah Tema">
+                        <i id="themeIcon" class="fa-solid fa-moon text-lg"></i>
+                    </button>
+
+                    <!-- GitHub Profile Button -->
+                    <a href="https://github.com" target="_blank" class="flex items-center space-x-2 bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all shadow-sm hover:shadow">
+                        <i class="fa-brands fa-github text-lg"></i>
+                        <span class="hidden sm:inline">Profil GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative overflow-hidden pt-12 pb-16 bg-gradient-to-b from-brand-50/50 via-transparent to-transparent dark:from-brand-950/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-100 text-brand-700 dark:bg-brand-900/50 dark:text-brand-300 mb-4 border border-brand-200 dark:border-brand-800">
+                    <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse mr-2"></span> Open Source Projects
+                </span>
+                <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
+                    Kumpulan Proyek & Karya Eksperimen
+                </h1>
+                <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                    Eksplorasi berbagai proyek open source, aplikasi web, riset AI, dan modul open-source yang telah dikembangkan secara konsisten.
+                </p>
+
+                <!-- Key Metrics / Stats -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                    <div class="bg-white dark:bg-slate-800/60 backdrop-blur border border-slate-200 dark:border-slate-800 p-4 rounded-2xl shadow-sm">
+                        <div id="statTotal" class="text-2xl sm:text-3xl font-extrabold text-brand-600 dark:text-brand-400">0</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Total Proyek</div>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800/60 backdrop-blur border border-slate-200 dark:border-slate-800 p-4 rounded-2xl shadow-sm">
+                        <div id="statActive" class="text-2xl sm:text-3xl font-extrabold text-emerald-500">0</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Proyek Aktif</div>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800/60 backdrop-blur border border-slate-200 dark:border-slate-800 p-4 rounded-2xl shadow-sm">
+                        <div id="statLanguages" class="text-2xl sm:text-3xl font-extrabold text-violet-500">0</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Bahasa / Stack</div>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800/60 backdrop-blur border border-slate-200 dark:border-slate-800 p-4 rounded-2xl shadow-sm">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-amber-500">100%</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Open Source</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 flex-grow w-full">
+        <!-- Controls Container -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+            <!-- Search Bar -->
+            <div class="relative flex-1 max-w-lg">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <input type="text" id="searchInput" oninput="filterProjects()" placeholder="Cari proyek berdasarkan nama, deskripsi, atau tech stack..."
+                    class="w-full pl-10 pr-10 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm shadow-sm transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500">
+                <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none" id="categoryContainer">
+                <!-- Dynamically Generated Buttons or Handled in JS -->
+            </div>
+        </div>
+
+        <!-- Projects Grid -->
+        <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Projects render here dynamically -->
+        </div>
+
+        <!-- Empty State (No Search Results) -->
+        <div id="emptyState" class="hidden text-center py-16">
+            <div class="w-16 h-16 mx-auto mb-4 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-400 text-2xl">
+                <i class="fa-solid fa-folder-open"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-1">Tidak ada proyek ditemukan</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Coba ubah kata kunci pencarian atau ganti filter kategori.</p>
+            <button onclick="resetFilters()" class="text-sm text-brand-600 dark:text-brand-400 font-medium hover:underline">
+                Reset Semua Filter
+            </button>
+        </div>
+    </main>
+
+    <!-- Modal Detail Proyek -->
+    <div id="projectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
+        <div id="modalContent" class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl transform scale-95 transition-transform duration-300 p-6 sm:p-8 relative">
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-700/60 text-slate-500 hover:text-slate-800 dark:hover:text-slate-100 flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Modal Header -->
+            <div class="flex items-center gap-3 mb-4 pr-8">
+                <span id="modalBadge" class="px-2.5 py-1 text-xs font-semibold rounded-md"></span>
+                <span id="modalStatus" class="px-2.5 py-1 text-xs font-semibold rounded-full flex items-center gap-1.5"></span>
+            </div>
+
+            <h2 id="modalTitle" class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4"></h2>
+            
+            <p id="modalDescription" class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6"></p>
+
+            <!-- Detailed Features/Info -->
+            <div class="mb-6 bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Fitur & Sorotan</h4>
+                <ul id="modalFeatures" class="list-disc list-inside text-xs sm:text-sm text-slate-600 dark:text-slate-300 space-y-1.5">
+                    <!-- Dynamic list items -->
+                </ul>
+            </div>
+
+            <!-- Tech Stack List -->
+            <div class="mb-8">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Teknologi Digunakan</h4>
+                <div id="modalTechStack" class="flex flex-wrap gap-2"></div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center gap-3 pt-4 border-t border-slate-100 dark:border-slate-700/60">
+                <a id="modalGithubLink" href="#" target="_blank" class="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 text-white py-2.5 px-5 rounded-xl font-medium text-sm transition-all shadow-sm">
+                    <i class="fa-brands fa-github text-lg"></i> Lihat Kode di GitHub
+                </a>
+                <a id="modalDemoLink" href="#" target="_blank" class="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white py-2.5 px-5 rounded-xl font-medium text-sm transition-all shadow-sm shadow-brand-500/20">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i> Buka Live Demo
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div>
+                <p class="text-sm text-slate-500 dark:text-slate-400">
+                    &copy; <span id="currentYear"></span> DevRepo Portfolio. Dibuat dengan <i class="fa-solid fa-heart text-red-500 mx-1"></i> & HTML/JS.
+                </p>
+            </div>
+            <div class="flex items-center space-x-4 text-slate-400">
+                <a href="https://github.com" target="_blank" class="hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+                    <i class="fa-brands fa-github text-lg"></i>
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+                    <i class="fa-brands fa-linkedin text-lg"></i>
+                </a>
+                <a href="https://twitter.com" target="_blank" class="hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+                    <i class="fa-brands fa-x-twitter text-lg"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data Dummy Proyek
+        const projects = [
+            {
+                id: 1,
+                title: "E-Commerce Microservices",
+                category: "Web Dev",
+                description: "Platform e-commerce modern dengan arsitektur microservices berbasis Node.js, Go, dan Redis cache.",
+                features: ["Autentikasi JWT & OAuth2", "Sistem Pembayaran Gateway integrated", "Pencarian cepat menggunakan Elasticsearch"],
+                tags: ["React", "Node.js", "Go", "Docker", "PostgreSQL"],
+                status: "Active", // Active, Completed, Maintenance
+                githubUrl: "https://github.com",
+                demoUrl: "https://example.com"
+            },
+            {
+                id: 2,
+                title: "AI Medical Image Detector",
+                category: "Data Science / AI",
+                description: "Model Convolutional Neural Network (CNN) untuk mendeteksi kelainan pada gambar hasil X-Ray secara real-time.",
+                features: ["Akurasi deteksi hingga 94.8%", "Visualisasi heat-map grad-CAM", "API RESTful berbasis FastAPI"],
+                tags: ["Python", "TensorFlow", "FastAPI", "OpenCV"],
+                status: "Completed",
+                githubUrl: "https://github.com",
+                demoUrl: "https://example.com"
+            },
+            {
+                id: 3,
+                title: "Task Management Mobile App",
+                category: "Mobile",
+                description: "Aplikasi produktivitas berbasis mobile dengan dukungan offline-first dan sinkronisasi cloud.",
+                features: ["Mode Gelap & Terang Otomatis", "Pemberitahuan push lokal", "Board Kanban interaktif"],
+                tags: ["Flutter", "Dart", "Firebase", "SQLite"],
+                status: "Active",
+                githubUrl: "https://github.com",
+                demoUrl: "https://example.com"
+            },
+            {
+                id: 4,
+                title: "Security Assessment Toolkit",
+                category: "Security",
+                description: "Kumpulan skrip otomatisasi untuk memindai kerentanan web dasar dan audit konfigurasi server.",
+                features: ["Laporan ringkas format PDF & JSON", "Pemindaian header HTTP & SSL", "Skrip multi-threading cepat"],
+                tags: ["Python", "Bash", "Linux", "Docker"],
+                status: "Maintenance",
+                githubUrl: "https://github.com",
+                demoUrl: null
+            },
+            {
+                id: 5,
+                title: "Personal Finance Dashboard",
+                category: "Web Dev",
+                description: "Dashboard interaktif analisis keuangan pribadi dengan visualisasi grafik lengkap dan prediksi pengeluaran.",
+                features: ["Grafik interaktif Chart.js", "Fitur ekspor/impor file CSV", "Kategori anggaran kustom"],
+                tags: ["Vue.js", "Tailwind CSS", "Chart.js", "Supabase"],
+                status: "Completed",
+                githubUrl: "https://github.com",
+                demoUrl: "https://example.com"
+            },
+            {
+                id: 6,
+                title: "Smart Home IoT Gateway",
+                category: "IoT",
+                description: "Sistem pengontrol perangkat pintar rumah tangga berbasis MQTT protocol dan ESP32.",
+                features: ["Monitoring konsumsi daya real-time", "Antarmuka responsif web local", "Integrasi Telegram bot alert"],
+                tags: ["C++", "ESP32", "MQTT", "Node-RED"],
+                status: "Active",
+                githubUrl: "https://github.com",
+                demoUrl: null
+            }
+        ];
+
+        // Daftar Kategori
+        const categories = ["All", "Web Dev", "Data Science / AI", "Mobile", "Security", "IoT"];
+
+        let selectedCategory = "All";
+
+        // Global DOM Elements
+        const projectsGrid = document.getElementById('projectsGrid');
+        const emptyState = document.getElementById('emptyState');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearchBtn = document.getElementById('clearSearchBtn');
+        const categoryContainer = document.getElementById('categoryContainer');
+
+        // Format Tahun Footer
+        document.getElementById('currentYear').innerText = new Date().getFullYear();
+
+        // Inisialisasi Aplikasi
+        window.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            renderCategories();
+            renderProjects();
+            updateStats();
+        });
+
+        // 1. Logika Theme (Dark / Light Mode)
+        function initTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('themeIcon').className = 'fa-solid fa-sun text-lg text-amber-400';
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('themeIcon').className = 'fa-solid fa-moon text-lg text-slate-600';
+            }
+        }
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (isDark) {
+                localStorage.theme = 'dark';
+                themeIcon.className = 'fa-solid fa-sun text-lg text-amber-400';
+            } else {
+                localStorage.theme = 'light';
+                themeIcon.className = 'fa-solid fa-moon text-lg text-slate-600';
+            }
+        }
+
+        // 2. Render Statistik Ringkas
+        function updateStats() {
+            document.getElementById('statTotal').innerText = projects.length;
+            document.getElementById('statActive').innerText = projects.filter(p => p.status === 'Active').length;
+            
+            // Hitung unique tags / languages
+            const allTags = new Set();
+            projects.forEach(p => p.tags.forEach(tag => allTags.add(tag)));
+            document.getElementById('statLanguages').innerText = allTags.size;
+        }
+
+        // 3. Render Tombol Kategori
+        function renderCategories() {
+            categoryContainer.innerHTML = '';
+            categories.forEach(cat => {
+                const isSelected = cat === selectedCategory;
+                const btn = document.createElement('button');
+                btn.onclick = () => selectCategory(cat);
+                btn.className = `px-3.5 py-2 text-xs font-semibold rounded-xl whitespace-nowrap transition-all ${
+                    isSelected 
+                        ? 'bg-brand-600 text-white shadow-md shadow-brand-500/20' 
+                        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700/70'
+                }`;
+                btn.innerText = cat;
+                categoryContainer.appendChild(btn);
+            });
+        }
+
+        function selectCategory(category) {
+            selectedCategory = category;
+            renderCategories();
+            filterProjects();
+        }
+
+        // 4. Status Badge Helper
+        function getStatusBadge(status) {
+            switch (status) {
+                case 'Active':
+                    return `<span class="px-2.5 py-0.5 text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 rounded-full flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Aktif</span>`;
+                case 'Completed':
+                    return `<span class="px-2.5 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300 rounded-full flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Selesai</span>`;
+                case 'Maintenance':
+                    return `<span class="px-2.5 py-0.5 text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 rounded-full flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>Pemeliharaan</span>`;
+                default:
+                    return '';
+            }
+        }
+
+        // 5. Render Daftar Kartu Proyek
+        function renderProjects() {
+            const query = searchInput.value.toLowerCase().trim();
+            
+            // Show / Hide Clear Search Button
+            if (query.length > 0) {
+                clearSearchBtn.classList.remove('hidden');
+            } else {
+                clearSearchBtn.classList.add('hidden');
+            }
+
+            // Filter Data
+            const filtered = projects.filter(project => {
+                const matchesCategory = selectedCategory === "All" || project.category === selectedCategory;
+                const matchesQuery = project.title.toLowerCase().includes(query) ||
+                                     project.description.toLowerCase().includes(query) ||
+                                     project.tags.some(tag => tag.toLowerCase().includes(query));
+                return matchesCategory && matchesQuery;
+            });
+
+            // Grid State Management
+            if (filtered.length === 0) {
+                projectsGrid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+            } else {
+                projectsGrid.classList.remove('hidden');
+                emptyState.classList.add('hidden');
+            }
+
+            projectsGrid.innerHTML = '';
+            filtered.forEach(project => {
+                const card = document.createElement('div');
+                card.className = "group bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-800 hover:border-brand-500/50 dark:hover:border-brand-500/50 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between cursor-pointer";
+                
+                // Card Header & Body
+                card.onclick = (e) => {
+                    // Mencegah modal terbuka jika tombol link di klik langsung
+                    if(!e.target.closest('a')) {
+                        openModal(project);
+                    }
+                };
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-brand-50 text-brand-700 dark:bg-brand-950/80 dark:text-brand-300 border border-brand-100 dark:border-brand-900/50">
+                                ${project.category}
+                            </span>
+                            ${getStatusBadge(project.status)}
+                        </div>
+
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors mb-2">
+                            ${project.title}
+                        </h3>
+
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3">
+                            ${project.description}
+                        </p>
+                    </div>
+
+                    <div>
+                        <!-- Tech Tags -->
+                        <div class="flex flex-wrap gap-1.5 mb-6">
+                            ${project.tags.map(tag => `
+                                <span class="text-[11px] font-medium bg-slate-100 dark:bg-slate-700/60 text-slate-600 dark:text-slate-300 px-2.5 py-1 rounded-md">
+                                    ${tag}
+                                </span>
+                            `).join('')}
+                        </div>
+
+                        <!-- Card Footer Links -->
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700/60">
+                            <a href="${project.githubUrl}" target="_blank" title="Lihat di GitHub" class="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white text-sm font-medium flex items-center gap-1.5 transition-colors">
+                                <i class="fa-brands fa-github text-base"></i> Kode
+                            </a>
+                            ${project.demoUrl ? `
+                                <a href="${project.demoUrl}" target="_blank" class="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 flex items-center gap-1 hover:underline">
+                                    Live Demo <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                </a>
+                            ` : '<span class="text-xs text-slate-400 italic">No Demo</span>'}
+                        </div>
+                    </div>
+                `;
+
+                projectsGrid.appendChild(card);
+            });
+        }
+
+        // 6. Filter Handlers
+        function filterProjects() {
+            renderProjects();
+        }
+
+        function clearSearch() {
+            searchInput.value = '';
+            filterProjects();
+            searchInput.focus();
+        }
+
+        function resetFilters() {
+            searchInput.value = '';
+            selectedCategory = 'All';
+            renderCategories();
+            filterProjects();
+        }
+
+        // 7. Logika Modal Detail Proyek
+        const modal = document.getElementById('projectModal');
+        const modalContent = document.getElementById('modalContent');
+
+        function openModal(project) {
+            document.getElementById('modalTitle').innerText = project.title;
+            document.getElementById('modalDescription').innerText = project.description;
+            
+            // Badge & Status
+            const modalBadge = document.getElementById('modalBadge');
+            modalBadge.innerText = project.category;
+            modalBadge.className = 'px-2.5 py-1 text-xs font-semibold rounded-md bg-brand-50 text-brand-700 dark:bg-brand-950/80 dark:text-brand-300 border border-brand-100 dark:border-brand-900/50';
+
+            document.getElementById('modalStatus').innerHTML = getStatusBadge(project.status);
+
+            // Features List
+            const modalFeatures = document.getElementById('modalFeatures');
+            modalFeatures.innerHTML = project.features.map(feat => `<li>${feat}</li>`).join('');
+
+            // Tech Stack
+            const modalTechStack = document.getElementById('modalTechStack');
+            modalTechStack.innerHTML = project.tags.map(tag => `
+                <span class="text-xs font-medium bg-slate-100 dark:bg-slate-700/60 text-slate-700 dark:text-slate-200 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                    ${tag}
+                </span>
+            `).join('');
+
+            // Links
+            document.getElementById('modalGithubLink').href = project.githubUrl;
+            const demoBtn = document.getElementById('modalDemoLink');
+            if(project.demoUrl) {
+                demoBtn.href = project.demoUrl;
+                demoBtn.classList.remove('hidden');
+            } else {
+                demoBtn.classList.add('hidden');
+            }
+
+            // Show Modal dengan animasi fade-in
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+
+            document.body.style.overflow = 'hidden'; // Stop background scroll
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        // Close Modal on Click Outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close Modal on Escape Key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
